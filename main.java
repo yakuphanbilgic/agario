@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import javax.swing.JViewport;
 
 public class main {
 
@@ -7,10 +8,10 @@ public class main {
 		DisplayGame panel= new DisplayGame();
 		frame.setVisible(true);
 		frame.add(panel);
-		frame.setSize(640, 480);
+		frame.setSize(DisplayGame.WIDTH, DisplayGame.HEIGHT);
 		//frame.setLocation(200, 200);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		
 
 	}
