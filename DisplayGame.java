@@ -1,8 +1,10 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.Stroke;
@@ -11,16 +13,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
 
 
 public class DisplayGame extends JPanel implements ActionListener,KeyListener{
+	private Rectangle outerArea;
 	public static int WIDTH=840;
 	public static int HEIGHT=680;
 	private int numoffoods=100;
 	private Players player1;
+	private JViewport vPort;
 	private Players player2;
 	private Foods food;
 	private Poisons poison;
@@ -34,17 +39,21 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 	public DisplayGame() {
 		this.addKeyListener(this);
 		this.addMouseListener(new Menu());
-		Timer timer=new Timer(30,this);
+		Timer timer=new Timer(40,this);
 		menu= new Menu();
 		player1= new Players();
 		player2= new Players();
 		poison= new Poisons(numoffoods/2);
 		food= new Foods(numoffoods);
-		
+		Dimension newSize = new Dimension(4000,3000);
+		outerArea= new Rectangle(0, 0, 4000, 3000);
+		setPreferredSize(newSize);
 		timer.start();
-
-
+	}	
+	public void setvPort(JViewport vPort) {
+		this.vPort = vPort;
 	}
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2=(Graphics2D)g;
@@ -60,6 +69,7 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 			player2.drawPlayers(g2);
 			didBallIntersect();
 			printInfoBall(g2);
+			g2.draw(outerArea);
 		}
 	}
 
@@ -89,6 +99,7 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 
 	}
 	public void printInfoBall(Graphics2D g2){
+		g2.setColor(Color.ORANGE);
 		Font font= new Font("arial",Font.BOLD,15);
 		g2.setFont(font);
 		g2.drawString("SPEED: "+new DecimalFormat("##.##").format(player1.getVelocity()), 50, 50);
@@ -107,8 +118,20 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 				double angle=Math.atan2(dy, dx);
 				if(mousePosition.getX()<player1.getPlayer().getBounds().getMinX()||mousePosition.getX()>player1.getPlayer().getBounds().getMaxX()||mousePosition.getY()<
 						player1.getPlayer().getBounds().getMinY()||mousePosition.getY()>player1.getPlayer().getBounds().getMaxY()){
-					player1.getPlayer().x+=player1.getVelocity()*Math.cos(angle);
-					player1.getPlayer().y+=player1.getVelocity()*Math.sin(angle);
+//					double a=(mousePosition.x-player1.getPlayer().x-10);
+//					double b=(mousePosition.y-player1.getPlayer().y-10);
+//					player1.getPlayer().x+=a*0.05;
+//					player1.getPlayer().y+=b*0.05;
+					player1.getPlayer().x+=(int)(player1.getVelocity()*Math.cos(angle));
+					player1.getPlayer().y+=(int)(player1.getVelocity()*Math.sin(angle));
+					Point view = new Point((int)player1.getPlayer().x-WIDTH/2,(int)player1.getPlayer().y-HEIGHT/2);
+				
+					vPort.setViewPosition(view);
+					System.out.println(player1.getPlayer().x+""+player1.getPlayer().y);
+//					double a=(p.x-ball.x-10);
+//					double b=(p.y-ball.y-10);
+//					ball.x+=a*0.05;
+//					ball.y+=b*0.05;
 				}
 
 
