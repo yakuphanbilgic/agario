@@ -11,16 +11,14 @@ public class Menu implements MouseListener{
 	private Rectangle quitButton = new Rectangle(DisplayGame.WIDTH/2-50, DisplayGame.HEIGHT/2+100, 100, 50);
 	private boolean enabled = true;
 	public void render(Graphics2D g2){
-		Font font= new Font("arial",Font.BOLD,50);
+		Font font= new Font("calibri", Font.BOLD,50);
 		g2.setFont(font);
 		g2.setColor(Color.YELLOW);
 		g2.fillOval(DisplayGame.WIDTH/2-73, DisplayGame.HEIGHT/2-250, 150, 150);
 		g2.setColor(Color.ORANGE);
-		g2.drawString("KONTIRA", DisplayGame.WIDTH/2-110, 300);
+		g2.drawString("Nam Nam Nam", DisplayGame.WIDTH/2-170, 300);
 		g2.setColor(Color.BLACK);
-		g2.draw(playButton);
 		g2.drawString("Play", playButton.x, playButton.y+40);
-		g2.draw(quitButton);
 		g2.drawString("Quit", quitButton.x, quitButton.y+40);
 	}
 
@@ -57,7 +55,6 @@ public class Menu implements MouseListener{
 			if(mx>=370&&mx<=470){
 				if (my>=440&&my<490) {
 					System.exit(1);
-
 				}
 			}
 		}

@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Poisons {
 	private Ellipse2D.Double poisons[];
-	private Color color= Color.GREEN;
+	private Color color = Color.GREEN;
 	
 	Poisons(int numofpoisons){
 		poisons= new Ellipse2D.Double[numofpoisons];
