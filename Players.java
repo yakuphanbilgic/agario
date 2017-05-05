@@ -7,12 +7,12 @@ import java.util.Random;
 public class Players implements Serializable {
 	public Ellipse2D.Double Player;
 	private Color playerColor;
-	private double velocity=4;
-	Random randomColor;
+	private double velocity=5;
+	Random random;
 	Players(){
-		randomColor= new Random();
-		Player=new Ellipse2D.Double(randomColor.nextInt(700), randomColor.nextInt(700), 25, 25);
-		playerColor= new Color(randomColor.nextInt(255),randomColor.nextInt(255),randomColor.nextInt(255));
+		random= new Random();
+		Player=new Ellipse2D.Double(random.nextInt(500)+2000, random.nextInt(500)+1000, 25, 25);
+		playerColor= new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255));
 	}
 	public void drawPlayers(Graphics2D g2){
 		g2.setColor(playerColor);
@@ -49,12 +49,4 @@ public class Players implements Serializable {
 	public void setVelocity(double velocity) {
 		this.velocity = velocity;
 	}
-	public Random getRandomColor() {
-		return randomColor;
-	}
-	public void setRandomColor(Random randomColor) {
-		this.randomColor = randomColor;
-	}
-
-
 }

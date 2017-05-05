@@ -1,4 +1,7 @@
+import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JViewport;
@@ -9,11 +12,15 @@ public class main {
 
 	public static boolean gamemode;
 	public static void main(String[] args) {
-		
 		JFrame frame= new JFrame("NAM NAM NAM");
+		
+		
+		
 		JScrollPane pane= new JScrollPane();
 		JViewport vport= new JViewport();
 		DisplayGame panel= new DisplayGame();
+		
+		panel.menu.setArgs(args);
 
 		vport.add(panel);
 		frame.setVisible(true);
@@ -28,7 +35,6 @@ public class main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		
-
 	}
 
 }

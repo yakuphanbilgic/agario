@@ -26,9 +26,7 @@ public class Poisons implements Serializable {
 
 		for (int i = 0; i < poisons.length; i++) {
 			poisons[i]=new Ellipse2D.Double(a.nextInt(4000), a.nextInt(3000), 7, 7);
-			
 			}
-
 	}
 
 	public Ellipse2D.Double[] getPoisons() {

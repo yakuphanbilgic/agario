@@ -6,15 +6,12 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -29,9 +26,12 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 	private JViewport vPort;
 	public Players player2;
 	public Foods food;
+	private long time;
 	public Poisons poison;
 	public Menu menu;
 	private Point pointPlayer1;
+	private JTextField connect;
+	public String[] args;
 	public static enum STATE{
 		MENU,
 		GAME,
@@ -50,25 +50,33 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 //
 //        }
 		menu= new Menu(this);
-		this.addMouseListener(menu);
-		this.addKeyListener(this);
+		time=System.nanoTime();
+		addMouseListener(menu);
+		addKeyListener(this);
+		setFocusable(true);
+		requestFocusInWindow();
 		player1= new Players();
 		player2= new Players();
 		poison= new Poisons(numoffoods/2);
 		food= new Foods(numoffoods);
 		Dimension newSize = new Dimension(4000,3000);
 		outerArea= new Rectangle(0, 0, 4000, 3000);
+		connect = new JTextField();
+		connect.setBounds(0, 0, 50, 100);
 		setPreferredSize(newSize);
-		setFocusable(true);
-		requestFocusInWindow();
+		add(connect);
+
 		timer.start();
 	}	
+	
+	
+
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("......�.ALI�");
+		System.out.println("asdasd");
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-			player2.moveRight();
+			player1.moveRight();
 			repaint();
 		}
 	}
@@ -95,7 +103,7 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 			menu.render(g2);
 		}
 		else if(state==STATE.GAME){
-			
+
 			poison.drawPoisons(g2);
 			food.drawFood(g2);
 			player1.drawPlayers(g2);
@@ -152,10 +160,12 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 	}
 	public void printInfoBall(Graphics2D g2){
 		g2.setColor(Color.ORANGE);
+		double a=TimeUnit.SECONDS.convert(System.nanoTime() - time, TimeUnit.NANOSECONDS);
 		Font font= new Font("arial",Font.BOLD,15);
 		g2.setFont(font);
 		g2.drawString("SPEED: "+new DecimalFormat("##.##").format(player1.getVelocity()),(int)(player1.getX()-350), (int)(player1.getY()-300));
-		g2.drawString("SIZE OF BALL: "+Math.floor(player1.getPlayer().height),(int)(player1.getX()-350), (int)(player1.getY()-280));
+		g2.drawString("RADIUS OF BALL: "+Math.floor(player1.getPlayer().height),(int)(player1.getX()-350), (int)(player1.getY()-280));
+		g2.drawString("TIME: "+a, (int)(player1.getX()-350),  (int)(player1.getY()-260));
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 import java.awt.geom.Ellipse2D;
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Client implements Runnable {
@@ -44,6 +43,13 @@ public class Client implements Runnable {
             e.printStackTrace();
         }
     }
+    
+    private void receiveFoods(Socket socket) throws IOException, ClassNotFoundException {
+        InputStream iStream = socket.getInputStream();
+        ObjectInputStream oiStream = new ObjectInputStream(iStream);
+        Foods foods = (Foods) oiStream.readObject();
+        panel.food=foods;
+    }
 
     private void post(Socket socket) throws IOException {
         OutputStream oStream = socket.getOutputStream();
@@ -57,13 +63,6 @@ public class Client implements Runnable {
         ObjectInputStream oiStream = new ObjectInputStream(iStream);
         Ellipse2D.Double[] poisons = (Ellipse2D.Double[]) oiStream.readObject();
         panel.poison.setPoisons(poisons);
-    }
-
-    private void receiveFoods(Socket socket) throws IOException, ClassNotFoundException {
-        InputStream iStream = socket.getInputStream();
-        ObjectInputStream oiStream = new ObjectInputStream(iStream);
-        Foods foods = (Foods) oiStream.readObject();
-        panel.food=foods;
     }
 
 

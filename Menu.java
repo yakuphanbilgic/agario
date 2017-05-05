@@ -1,11 +1,15 @@
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
+
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import javax.swing.JTextField;
+
+
 
 public class Menu implements MouseListener{
 	private Rectangle playButton = new Rectangle(DisplayGame.WIDTH/2-50,DisplayGame.HEIGHT/2,100,50);
@@ -14,13 +18,18 @@ public class Menu implements MouseListener{
 	private boolean enabled = true;
 	private DisplayGame displayGame;
 	private Point pointPlayer1;
+	public String[] args;
 
 	public Menu(DisplayGame displayGame) {
 		this.displayGame = displayGame;
 	}
+	
+	public void setArgs(String[] A){
+		args = A;
+	}
 
 	public void render(Graphics2D g2){
-		
+
 		Font font= new Font("calibri", Font.BOLD,50);
 		g2.setFont(font);
 		g2.draw(connectButton);
@@ -34,6 +43,9 @@ public class Menu implements MouseListener{
 		g2.drawString("Play", playButton.x, playButton.y+40);
 		g2.drawString("Quit", quitButton.x, quitButton.y+40);
 		g2.drawString("Connect", connectButton.x, connectButton.y+40);
+		//JTextField ip = new JTextField ("server IP");
+		//ip.setVisible(true);
+		
 		//g2.drawString("Connect", x, y);
 		
 	}
@@ -47,13 +59,13 @@ public class Menu implements MouseListener{
 		g2.setColor(Color.GREEN);
 		Font font= new Font("calibri", Font.BOLD,50);
 		g2.setFont(font);
-		g2.drawString("YOU WON", pointPlayer1.x, pointPlayer1.y);
+		g2.drawString("YOU WON", pointPlayer1.x-100, pointPlayer1.y);
 	}
 	public void player2Won(Graphics2D g2){
 		g2.setColor(Color.RED);
 		Font font= new Font("calibri", Font.BOLD,50);
 		g2.setFont(font);
-		g2.drawString("YOU LOST", pointPlayer1.x, pointPlayer1.y);
+		g2.drawString("YOU LOST", pointPlayer1.x-100, pointPlayer1.y);
 	}
 
 	@Override
@@ -82,16 +94,26 @@ public class Menu implements MouseListener{
 			int my=e.getY();
 			if(mx>=370&&mx<=470){
 				if(my>=340&&my<=390){
-		            Server server = new Server(displayGame);
-		            Thread thread = new Thread(server);
-		            thread.start();
+					
+					if(args.length == 0){
+			            Server server = new Server(displayGame);
+			            Thread thread = new Thread(server);
+			            thread.start();
+					}
+					else{
+			            Client client = new Client(args[0] ,displayGame);
+			            System.out.println(args[0]);
+			            Thread thread = new Thread("client");
+			            thread.start();
+					}
+					
 					DisplayGame.state=DisplayGame.STATE.GAME;
 					enabled=false;
 				}
 			}
 			if(mx>=370&&mx<=470){
 				if (my>=440&&my<490) {
-
+					System.out.println("RTEE");
 				}
 			}
 			if(mx>=370&&mx<=470){
