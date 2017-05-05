@@ -103,7 +103,7 @@ public class Menu implements MouseListener{
 					else{
 			            Client client = new Client(args[0] ,displayGame);
 			            System.out.println(args[0]);
-			            Thread thread = new Thread("client");
+			            Thread thread = new Thread(client);
 			            thread.start();
 					}
 					
