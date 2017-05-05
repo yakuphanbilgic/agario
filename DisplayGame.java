@@ -42,13 +42,6 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 
 	public DisplayGame() {
 		Timer timer=new Timer(30,this);
-//        if (main.gamemode) {
-//            Client client = new Client("127.0.0.1", this);
-//            Thread thread = new Thread(client);
-//            thread.start();
-//        } else {
-//
-//        }
 		menu= new Menu(this);
 		time=System.nanoTime();
 		addMouseListener(menu);
@@ -65,16 +58,11 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 		connect.setBounds(0, 0, 50, 100);
 		setPreferredSize(newSize);
 		add(connect);
-
 		timer.start();
 	}	
-	
-	
-
-
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("asdasd");
+		System.out.println("THIS DOESNT WORK");
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
 			player1.moveRight();
 			repaint();
