@@ -9,8 +9,8 @@ public class Players {
 	private double velocity=4;
 	Random randomColor;
 	Players(){
-		Player=new Ellipse2D.Double(DisplayGame.WIDTH/2, DisplayGame.HEIGHT/2, 25, 25);
 		randomColor= new Random();
+		Player=new Ellipse2D.Double(randomColor.nextInt(700), randomColor.nextInt(700), 25, 25);
 		playerColor= new Color(randomColor.nextInt(255),randomColor.nextInt(255),randomColor.nextInt(255));
 	}
 	public void drawPlayers(Graphics2D g2){
@@ -27,8 +27,17 @@ public class Players {
 		Player.height -=0.9;
 		velocity += 0.03;
 	}
+	public void moveRight(){
+		Player.x+=1;
+	}
 	public Ellipse2D.Double getPlayer() {
 		return Player;
+	}
+	public double getX(){
+		return Player.x;
+	}
+	public double getY(){
+		return Player.y;
 	}
 	public void setPlayer(Ellipse2D.Double player) {
 		Player = player;

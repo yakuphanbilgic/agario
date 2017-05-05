@@ -6,7 +6,7 @@ import javax.swing.ScrollPaneConstants;
 public class main {
 
 	public static void main(String[] args) {
-		JFrame frame= new JFrame("KONTIRA");
+		JFrame frame= new JFrame("NAM NAM NAM");
 		JScrollPane pane= new JScrollPane();
 		JViewport vport= new JViewport();
 		DisplayGame panel= new DisplayGame();

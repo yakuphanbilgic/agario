@@ -24,7 +24,7 @@ public class Poisons {
 		Random a=new Random();
 
 		for (int i = 0; i < poisons.length; i++) {
-			poisons[i]=new Ellipse2D.Double(a.nextInt(1000*2), a.nextInt(800*2), 7, 7);
+			poisons[i]=new Ellipse2D.Double(a.nextInt(4000), a.nextInt(3000), 7, 7);
 			
 			}
 

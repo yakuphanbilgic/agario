@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,6 +11,7 @@ public class Menu implements MouseListener{
 	private Rectangle playButton = new Rectangle(DisplayGame.WIDTH/2-50,DisplayGame.HEIGHT/2,100,50);
 	private Rectangle quitButton = new Rectangle(DisplayGame.WIDTH/2-50, DisplayGame.HEIGHT/2+100, 100, 50);
 	private boolean enabled = true;
+	private Point pointPlayer1;
 	public void render(Graphics2D g2){
 		Font font= new Font("calibri", Font.BOLD,50);
 		g2.setFont(font);
@@ -20,6 +22,21 @@ public class Menu implements MouseListener{
 		g2.setColor(Color.BLACK);
 		g2.drawString("Play", playButton.x, playButton.y+40);
 		g2.drawString("Quit", quitButton.x, quitButton.y+40);
+	}
+	public void setPoint(Point pointPlayer1){
+		this.pointPlayer1=pointPlayer1;
+	}
+	public void player1Won(Graphics2D g2){
+		g2.setColor(Color.GREEN);
+		Font font= new Font("calibri", Font.BOLD,50);
+		g2.setFont(font);
+		g2.drawString("YOU WON", pointPlayer1.x, pointPlayer1.y);
+	}
+	public void player2Won(Graphics2D g2){
+		g2.setColor(Color.RED);
+		Font font= new Font("calibri", Font.BOLD,50);
+		g2.setFont(font);
+		g2.drawString("YOU LOST", pointPlayer1.x, pointPlayer1.y);
 	}
 
 	@Override

@@ -37,7 +37,7 @@ public class Foods {
 		Random a=new Random();
 
 		for (int i = 0; i < foods.length; i++) {
-			foods[i]=new Ellipse2D.Double(a.nextInt(DisplayGame.WIDTH*2), a.nextInt(DisplayGame.HEIGHT*2), 9.3, 9.3);
+			foods[i]=new Ellipse2D.Double(a.nextInt(4000), a.nextInt(3000), 9.3, 9.3);
 			
 			}
 

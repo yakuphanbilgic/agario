@@ -23,26 +23,29 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 	private Rectangle outerArea;
 	public static int WIDTH=840;
 	public static int HEIGHT=680;
-	private int numoffoods=100;
+	private int numoffoods=1000;
 	private Players player1;
 	private JViewport vPort;
 	private Players player2;
 	private Foods food;
 	private Poisons poison;
 	private Menu menu;
+	private Point pointPlayer1;
 	public static enum STATE{
 		MENU,
-		GAME
+		GAME,
+		LOSE,
+		WIN
 	};
 	public static STATE state=STATE.MENU;
 
 	public DisplayGame() {
-		this.addKeyListener(this);
+		Timer timer=new Timer(30,this);
 		this.addMouseListener(new Menu());
-		Timer timer=new Timer(40,this);
-		menu= new Menu();
+		this.addKeyListener(this);
 		player1= new Players();
 		player2= new Players();
+		menu= new Menu();
 		poison= new Poisons(numoffoods/2);
 		food= new Foods(numoffoods);
 		Dimension newSize = new Dimension(4000,3000);
@@ -50,6 +53,24 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 		setPreferredSize(newSize);
 		timer.start();
 	}	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		System.out.println("......Ç.ALIÞ");
+		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+			player2.moveRight();
+			repaint();
+		}
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 	public void setvPort(JViewport vPort) {
 		this.vPort = vPort;
 	}
@@ -67,43 +88,61 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 			food.drawFood(g2);
 			player1.drawPlayers(g2);
 			player2.drawPlayers(g2);
+			pointPlayer1= new Point((int)(player1.getX()),(int)(player1.getY()));
+			menu.setPoint(pointPlayer1);
 			didBallIntersect();
 			printInfoBall(g2);
+			whoWon();
 			g2.draw(outerArea);
 		}
+		else if(state==STATE.WIN){
+			menu.player1Won(g2);
+		}
+		else if(state==STATE.LOSE){
+			menu.player2Won(g2);
+		}
 	}
-
+	public void whoWon(){
+		if(player1.getPlayer().height>player2.getPlayer().height&&player1.getPlayer().getBounds().intersects(player2.getPlayer().getBounds())){
+			state=STATE.WIN;
+		}
+		else if(player1.getPlayer().height<player2.getPlayer().height&&player1.getPlayer().getBounds().intersects(player2.getPlayer().getBounds())){
+			state=STATE.LOSE;
+		}
+	}
 	public void didBallIntersect(){
 		for (int i = 0; i < food.getFoods().length; i++) {
 			if(food.getFoods()[i]!=null && player1.getPlayer().getBounds().intersects(food.getFoods()[i].getBounds())){
 				food.getFoods()[i] = null;
 				player1.increaseSize();
-//				player1.getPlayer().width += 0.9;
-//				player1.getPlayer().height += 0.9;
-//				double velocity= player1.getVelocity();
-//				velocity -= 0.03;
-//				player1.setVelocity(velocity);
+			}
+		}
+		for (int i = 0; i < food.getFoods().length; i++) {
+			if(food.getFoods()[i]!=null && player2.getPlayer().getBounds().intersects(food.getFoods()[i].getBounds())){
+				food.getFoods()[i] = null;
+				player2.increaseSize();
 			}
 		}
 		for (int i = 0; i < poison.getPoisons().length; i++) {
 			if(poison.getPoisons()[i]!=null && player1.getPlayer().getBounds().intersects(poison.getPoisons()[i].getBounds())){
 				poison.getPoisons()[i]=null;
 				player1.decreaseSize();
-//				player1.getPlayer().width-=0.9;
-//				player1.getPlayer().height-=0.9;
-//				double velocity= player1.getVelocity();
-//				velocity -= 0.03;
-//				player1.setVelocity(velocity);
 			}
 		}
+		for (int i = 0; i < poison.getPoisons().length; i++) {
+			if(poison.getPoisons()[i]!=null && player2.getPlayer().getBounds().intersects(poison.getPoisons()[i].getBounds())){
+				poison.getPoisons()[i]=null;
+				player2.decreaseSize();
+			}
+		}		
 
 	}
 	public void printInfoBall(Graphics2D g2){
 		g2.setColor(Color.ORANGE);
 		Font font= new Font("arial",Font.BOLD,15);
 		g2.setFont(font);
-		g2.drawString("SPEED: "+new DecimalFormat("##.##").format(player1.getVelocity()), 50, 50);
-		g2.drawString("SIZE OF BALL: "+Math.floor(player1.getPlayer().height), 50, 63);
+		g2.drawString("SPEED: "+new DecimalFormat("##.##").format(player1.getVelocity()),(int)(player1.getX()-350), (int)(player1.getY()-300));
+		g2.drawString("SIZE OF BALL: "+Math.floor(player1.getPlayer().height),(int)(player1.getX()-350), (int)(player1.getY()-280));
 	}
 
 	@Override
@@ -118,41 +157,14 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 				double angle=Math.atan2(dy, dx);
 				if(mousePosition.getX()<player1.getPlayer().getBounds().getMinX()||mousePosition.getX()>player1.getPlayer().getBounds().getMaxX()||mousePosition.getY()<
 						player1.getPlayer().getBounds().getMinY()||mousePosition.getY()>player1.getPlayer().getBounds().getMaxY()){
-//					double a=(mousePosition.x-player1.getPlayer().x-10);
-//					double b=(mousePosition.y-player1.getPlayer().y-10);
-//					player1.getPlayer().x+=a*0.05;
-//					player1.getPlayer().y+=b*0.05;
 					player1.getPlayer().x+=(int)(player1.getVelocity()*Math.cos(angle));
 					player1.getPlayer().y+=(int)(player1.getVelocity()*Math.sin(angle));
 					Point view = new Point((int)player1.getPlayer().x-WIDTH/2,(int)player1.getPlayer().y-HEIGHT/2);
-				
 					vPort.setViewPosition(view);
-					System.out.println(player1.getPlayer().x+""+player1.getPlayer().y);
-//					double a=(p.x-ball.x-10);
-//					double b=(p.y-ball.y-10);
-//					ball.x+=a*0.05;
-//					ball.y+=b*0.05;
 				}
-
-
 			}		
 			repaint();	
 		}
 	}
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-		
-	}
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }
