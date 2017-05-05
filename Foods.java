@@ -1,9 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 import java.util.Random;
 
-public class Foods {
+public class Foods implements Serializable {
 	public static Ellipse2D.Double foods[];
 	private Color foodColors[];
 	

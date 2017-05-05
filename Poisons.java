@@ -1,9 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 import java.util.Random;
 
-public class Poisons {
+public class Poisons implements Serializable {
 	private Ellipse2D.Double poisons[];
 	private Color color = Color.GREEN;
 	

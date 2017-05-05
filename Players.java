@@ -1,9 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 import java.util.Random;
 
-public class Players {
+public class Players implements Serializable {
 	public Ellipse2D.Double Player;
 	private Color playerColor;
 	private double velocity=4;
