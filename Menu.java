@@ -14,6 +14,11 @@ public class Menu implements MouseListener{
 	private boolean enabled = true;
 	private DisplayGame displayGame;
 	private Point pointPlayer1;
+
+	public Menu(DisplayGame displayGame) {
+		this.displayGame = displayGame;
+	}
+
 	public void render(Graphics2D g2){
 		
 		Font font= new Font("calibri", Font.BOLD,50);

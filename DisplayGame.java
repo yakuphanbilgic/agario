@@ -49,11 +49,11 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 //        } else {
 //
 //        }
-		this.addMouseListener(new Menu());
+		menu= new Menu(this);
+		this.addMouseListener(menu);
 		this.addKeyListener(this);
 		player1= new Players();
 		player2= new Players();
-		menu= new Menu();
 		poison= new Poisons(numoffoods/2);
 		food= new Foods(numoffoods);
 		Dimension newSize = new Dimension(4000,3000);
@@ -66,7 +66,7 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("......Ç.ALIÞ");
+		System.out.println("......ï¿½.ALIï¿½");
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
 			player2.moveRight();
 			repaint();

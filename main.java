@@ -15,7 +15,6 @@ public class main {
 		JViewport vport= new JViewport();
 		DisplayGame panel= new DisplayGame();
 
-		panel.menu.setDisplayGame(panel);
 		vport.add(panel);
 		frame.setVisible(true);
 		pane.setViewport(vport);
