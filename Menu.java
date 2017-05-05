@@ -12,6 +12,7 @@ public class Menu implements MouseListener{
 	private Rectangle connectButton = new Rectangle(DisplayGame.WIDTH/2-50, DisplayGame.HEIGHT/2+100, 100, 50);
 	private Rectangle quitButton= new Rectangle(DisplayGame.WIDTH/2-50,DisplayGame.HEIGHT/2+200,100,50);
 	private boolean enabled = true;
+	private DisplayGame displayGame;
 	private Point pointPlayer1;
 	public void render(Graphics2D g2){
 		
@@ -33,6 +34,9 @@ public class Menu implements MouseListener{
 	}
 	public void setPoint(Point pointPlayer1){
 		this.pointPlayer1=pointPlayer1;
+	}
+	public void setDisplayGame(DisplayGame dg){
+		displayGame=dg;
 	}
 	public void player1Won(Graphics2D g2){
 		g2.setColor(Color.GREEN);
@@ -73,7 +77,7 @@ public class Menu implements MouseListener{
 			int my=e.getY();
 			if(mx>=370&&mx<=470){
 				if(my>=340&&my<=390){
-		            Server server = new Server(new DisplayGame());
+		            Server server = new Server(displayGame);
 		            Thread thread = new Thread(server);
 		            thread.start();
 					DisplayGame.state=DisplayGame.STATE.GAME;

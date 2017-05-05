@@ -4,7 +4,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
 public class Foods {
-	private Ellipse2D.Double foods[];
+	public static Ellipse2D.Double foods[];
 	private Color foodColors[];
 	
 	Foods(int numoffoods){

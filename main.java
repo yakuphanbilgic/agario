@@ -14,6 +14,8 @@ public class main {
 		JScrollPane pane= new JScrollPane();
 		JViewport vport= new JViewport();
 		DisplayGame panel= new DisplayGame();
+
+		panel.menu.setDisplayGame(panel);
 		vport.add(panel);
 		frame.setVisible(true);
 		pane.setViewport(vport);

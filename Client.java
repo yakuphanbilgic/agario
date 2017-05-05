@@ -62,8 +62,8 @@ public class Client implements Runnable {
     private void receiveFoods(Socket socket) throws IOException, ClassNotFoundException {
         InputStream iStream = socket.getInputStream();
         ObjectInputStream oiStream = new ObjectInputStream(iStream);
-        Ellipse2D.Double[] foods = (Ellipse2D.Double[]) oiStream.readObject();
-        panel.food.setFoods(foods);
+        Foods foods = (Foods) oiStream.readObject();
+        panel.food=foods;
     }
 
 

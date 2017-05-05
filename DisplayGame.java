@@ -30,7 +30,7 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 	public Players player2;
 	public Foods food;
 	public Poisons poison;
-	private Menu menu;
+	public Menu menu;
 	private Point pointPlayer1;
 	public static enum STATE{
 		MENU,
@@ -42,13 +42,13 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 
 	public DisplayGame() {
 		Timer timer=new Timer(30,this);
-        if (main.gamemode) {
-            Client client = new Client("127.0.0.1", this);
-            Thread thread = new Thread(client);
-            thread.start();
-        } else {
-
-        }
+//        if (main.gamemode) {
+//            Client client = new Client("127.0.0.1", this);
+//            Thread thread = new Thread(client);
+//            thread.start();
+//        } else {
+//
+//        }
 		this.addMouseListener(new Menu());
 		this.addKeyListener(this);
 		player1= new Players();
@@ -63,6 +63,7 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 		requestFocusInWindow();
 		timer.start();
 	}	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		System.out.println("......Ç.ALIÞ");

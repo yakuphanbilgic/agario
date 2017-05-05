@@ -38,7 +38,7 @@ public class Server implements Runnable {
         try {
             OutputStream oStream = socket.getOutputStream();
             ObjectOutputStream ooStream = new ObjectOutputStream(oStream);
-            ooStream.writeObject(panel.food.getFoods());
+            ooStream.writeObject(panel.food);
         } catch (IOException e) {
             e.printStackTrace();
         }
