@@ -19,16 +19,17 @@ import java.text.DecimalFormat;
 import javax.swing.*;
 
 
+
 public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 	private Rectangle outerArea;
 	public static int WIDTH=840;
 	public static int HEIGHT=680;
 	private int numoffoods=1000;
-	private Players player1;
+	public Players player1;
 	private JViewport vPort;
-	private Players player2;
-	private Foods food;
-	private Poisons poison;
+	public Players player2;
+	public Foods food;
+	public Poisons poison;
 	private Menu menu;
 	private Point pointPlayer1;
 	public static enum STATE{
@@ -41,6 +42,13 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 
 	public DisplayGame() {
 		Timer timer=new Timer(30,this);
+        if (main.gamemode) {
+            Client client = new Client("127.0.0.1", this);
+            Thread thread = new Thread(client);
+            thread.start();
+        } else {
+
+        }
 		this.addMouseListener(new Menu());
 		this.addKeyListener(this);
 		player1= new Players();
@@ -51,6 +59,8 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 		Dimension newSize = new Dimension(4000,3000);
 		outerArea= new Rectangle(0, 0, 4000, 3000);
 		setPreferredSize(newSize);
+		setFocusable(true);
+		requestFocusInWindow();
 		timer.start();
 	}	
 	@Override
@@ -84,6 +94,7 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 			menu.render(g2);
 		}
 		else if(state==STATE.GAME){
+			
 			poison.drawPoisons(g2);
 			food.drawFood(g2);
 			player1.drawPlayers(g2);
@@ -94,6 +105,7 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 			printInfoBall(g2);
 			whoWon();
 			g2.draw(outerArea);
+			g2.dispose();
 		}
 		else if(state==STATE.WIN){
 			menu.player1Won(g2);

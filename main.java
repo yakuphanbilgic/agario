@@ -1,11 +1,15 @@
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 
+
 public class main {
 
+	public static boolean gamemode;
 	public static void main(String[] args) {
+		
 		JFrame frame= new JFrame("NAM NAM NAM");
 		JScrollPane pane= new JScrollPane();
 		JViewport vport= new JViewport();

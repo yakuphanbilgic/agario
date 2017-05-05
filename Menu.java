@@ -9,12 +9,17 @@ import java.awt.event.MouseListener;
 
 public class Menu implements MouseListener{
 	private Rectangle playButton = new Rectangle(DisplayGame.WIDTH/2-50,DisplayGame.HEIGHT/2,100,50);
-	private Rectangle quitButton = new Rectangle(DisplayGame.WIDTH/2-50, DisplayGame.HEIGHT/2+100, 100, 50);
+	private Rectangle connectButton = new Rectangle(DisplayGame.WIDTH/2-50, DisplayGame.HEIGHT/2+100, 100, 50);
+	private Rectangle quitButton= new Rectangle(DisplayGame.WIDTH/2-50,DisplayGame.HEIGHT/2+200,100,50);
 	private boolean enabled = true;
 	private Point pointPlayer1;
 	public void render(Graphics2D g2){
+		
 		Font font= new Font("calibri", Font.BOLD,50);
 		g2.setFont(font);
+		g2.draw(connectButton);
+		g2.draw(playButton);
+		g2.draw(quitButton);
 		g2.setColor(Color.YELLOW);
 		g2.fillOval(DisplayGame.WIDTH/2-73, DisplayGame.HEIGHT/2-250, 150, 150);
 		g2.setColor(Color.ORANGE);
@@ -22,6 +27,9 @@ public class Menu implements MouseListener{
 		g2.setColor(Color.BLACK);
 		g2.drawString("Play", playButton.x, playButton.y+40);
 		g2.drawString("Quit", quitButton.x, quitButton.y+40);
+		g2.drawString("Connect", connectButton.x, connectButton.y+40);
+		//g2.drawString("Connect", x, y);
+		
 	}
 	public void setPoint(Point pointPlayer1){
 		this.pointPlayer1=pointPlayer1;
@@ -65,12 +73,20 @@ public class Menu implements MouseListener{
 			int my=e.getY();
 			if(mx>=370&&mx<=470){
 				if(my>=340&&my<=390){
+		            Server server = new Server(new DisplayGame());
+		            Thread thread = new Thread(server);
+		            thread.start();
 					DisplayGame.state=DisplayGame.STATE.GAME;
 					enabled=false;
 				}
 			}
 			if(mx>=370&&mx<=470){
 				if (my>=440&&my<490) {
+
+				}
+			}
+			if(mx>=370&&mx<=470){
+				if(my>=540&&my<590){
 					System.exit(1);
 				}
 			}
