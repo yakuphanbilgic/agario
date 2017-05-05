@@ -1,3 +1,4 @@
+import java.awt.geom.Ellipse2D;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -46,7 +47,7 @@ public class Server implements Runnable {
     private void post(Socket socket) throws IOException {
         OutputStream oStream = socket.getOutputStream();
         ObjectOutputStream ooStream = new ObjectOutputStream(oStream);
-        ooStream.writeObject(panel.player1);
+        ooStream.writeObject(panel.player1.Player);
     }
 
 
@@ -64,8 +65,8 @@ public class Server implements Runnable {
         try {
             InputStream iStream = socket.getInputStream();
             ObjectInputStream oiStream = new ObjectInputStream(iStream);
-            Players opponent = (Players) oiStream.readObject();
-            panel.player2= opponent;
+            Ellipse2D.Double opponent = (Ellipse2D.Double) oiStream.readObject();
+            panel.player2.Player= opponent;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

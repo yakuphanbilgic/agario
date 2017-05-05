@@ -38,8 +38,8 @@ public class Client implements Runnable {
         try {
             InputStream iStream = socket.getInputStream();
             ObjectInputStream oiStream = new ObjectInputStream(iStream);
-            Players player2 = (Players) oiStream.readObject();
-            panel.player2=player2;
+            Ellipse2D.Double player2 = (Ellipse2D.Double) oiStream.readObject();
+            panel.player2.Player=player2;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -48,7 +48,7 @@ public class Client implements Runnable {
     private void post(Socket socket) throws IOException {
         OutputStream oStream = socket.getOutputStream();
         ObjectOutputStream ooStream = new ObjectOutputStream(oStream);
-        ooStream.writeObject(panel.player1);
+        ooStream.writeObject(panel.player1.Player);
     }
 
 

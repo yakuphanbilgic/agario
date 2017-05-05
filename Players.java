@@ -4,7 +4,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
 public class Players {
-	private Ellipse2D.Double Player;
+	public Ellipse2D.Double Player;
 	private Color playerColor;
 	private double velocity=4;
 	Random randomColor;
