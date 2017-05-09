@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Random;
 
 public class Players implements Serializable {
-	public Ellipse2D.Double Player;
+	private Ellipse2D.Double Player;
 	private Color playerColor;
 	private double velocity=5;
 	Random random;

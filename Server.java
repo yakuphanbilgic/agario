@@ -1,4 +1,3 @@
-import java.awt.geom.Ellipse2D;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -13,8 +12,7 @@ public class Server implements Runnable {
     }
 
     private void hostGame() throws IOException {
-    	System.out.println("RTE");
-        ServerSocket listener = new ServerSocket(8080);
+        ServerSocket listener = new ServerSocket(4444);
         Socket socket = listener.accept();
 
         if (!mapSent) {
@@ -38,7 +36,7 @@ public class Server implements Runnable {
         try {
             OutputStream oStream = socket.getOutputStream();
             ObjectOutputStream ooStream = new ObjectOutputStream(oStream);
-            ooStream.writeObject(panel.food);
+            ooStream.writeObject(panel.getFood());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,7 +45,7 @@ public class Server implements Runnable {
     private void post(Socket socket) throws IOException {
         OutputStream oStream = socket.getOutputStream();
         ObjectOutputStream ooStream = new ObjectOutputStream(oStream);
-        ooStream.writeObject(panel.player1.Player);
+        ooStream.writeObject(panel.getPlayer1());
     }
 
 
@@ -55,7 +53,7 @@ public class Server implements Runnable {
         try {
             OutputStream oStream = socket.getOutputStream();
             ObjectOutputStream ooStream = new ObjectOutputStream(oStream);
-            ooStream.writeObject(panel.poison.getPoisons());
+            ooStream.writeObject(panel.getPoison());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,8 +63,8 @@ public class Server implements Runnable {
         try {
             InputStream iStream = socket.getInputStream();
             ObjectInputStream oiStream = new ObjectInputStream(iStream);
-            Ellipse2D.Double opponent = (Ellipse2D.Double) oiStream.readObject();
-            panel.player2.Player= opponent;
+            Players player2 = (Players) oiStream.readObject();
+            panel.setPlayer2(player2);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

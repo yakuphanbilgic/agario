@@ -5,7 +5,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.JTextField;
 
 public class Menu implements MouseListener{
 	private Rectangle playButton = new Rectangle(DisplayGame.WIDTH/2-50,DisplayGame.HEIGHT/2,100,50);
@@ -79,7 +78,6 @@ public class Menu implements MouseListener{
 			int my=e.getY();
 			if(mx>=370&&mx<=470){
 				if(my>=340&&my<=390){
-					
 					if(args.length == 0){
 			            Server server = new Server(displayGame);
 			            Thread thread = new Thread(server);
@@ -90,8 +88,7 @@ public class Menu implements MouseListener{
 			            System.out.println(args[0]);
 			            Thread thread = new Thread(client);
 			            thread.start();
-					}
-					
+					}	
 					DisplayGame.state=DisplayGame.STATE.GAME;
 					enabled=false;
 				}
@@ -107,7 +104,6 @@ public class Menu implements MouseListener{
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -1,4 +1,3 @@
-import java.awt.geom.Ellipse2D;
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
@@ -16,7 +15,7 @@ public class Client implements Runnable {
         Socket socket = null;
 
         try {
-            socket = new Socket(this.address, 8080);
+            socket = new Socket(this.address, 4444);
             receiveFoods(socket);
             receivePoisons(socket);
         } catch (IOException | ClassNotFoundException e) {
@@ -37,8 +36,8 @@ public class Client implements Runnable {
         try {
             InputStream iStream = socket.getInputStream();
             ObjectInputStream oiStream = new ObjectInputStream(iStream);
-            Ellipse2D.Double player2 = (Ellipse2D.Double) oiStream.readObject();
-            panel.player2.Player=player2;
+            Players player2 = (Players) oiStream.readObject();
+            panel.setPlayer2(player2);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -48,21 +47,21 @@ public class Client implements Runnable {
         InputStream iStream = socket.getInputStream();
         ObjectInputStream oiStream = new ObjectInputStream(iStream);
         Foods foods = (Foods) oiStream.readObject();
-        panel.food=foods;
+        panel.setFood(foods);;
     }
 
     private void post(Socket socket) throws IOException {
         OutputStream oStream = socket.getOutputStream();
         ObjectOutputStream ooStream = new ObjectOutputStream(oStream);
-        ooStream.writeObject(panel.player1.Player);
+        ooStream.writeObject(panel.getPlayer1());
     }
 
 
     private void receivePoisons(Socket socket) throws IOException, ClassNotFoundException {
         InputStream iStream = socket.getInputStream();
         ObjectInputStream oiStream = new ObjectInputStream(iStream);
-        Ellipse2D.Double[] poisons = (Ellipse2D.Double[]) oiStream.readObject();
-        panel.poison.setPoisons(poisons);
+        Poisons poisons = (Poisons) oiStream.readObject();
+        panel.setPoison(poisons);
     }
 
 

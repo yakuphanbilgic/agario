@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Random;
 
 public class Foods implements Serializable {
-	public Ellipse2D.Double foods[];
+	private Ellipse2D.Double foods[];
 	private Color foodColors[];
 	
 	Foods(int numoffoods){
@@ -36,12 +36,9 @@ public class Foods implements Serializable {
 	}
 	public void initializeFoods(){
 		Random a=new Random();
-
 		for (int i = 0; i < foods.length; i++) {
 			foods[i]=new Ellipse2D.Double(a.nextInt(4000), a.nextInt(3000), 9.3, 9.3);
-			
 			}
-
 	}
 	public Ellipse2D.Double[] getFoods() {
 		return foods;

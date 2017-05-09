@@ -12,22 +12,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
-
 import javax.swing.*;
-
-
 
 public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 	private Rectangle outerArea;
 	public static int WIDTH=840;
 	public static int HEIGHT=680;
 	private int numoffoods=1000;
-	public Players player1;
+	private Players player1;
 	private JViewport vPort;
-	public Players player2;
-	public Foods food;
+	private Players player2;
+	private Foods food;
 	private long time;
-	public Poisons poison;
+	private Poisons poison;
 	public Menu menu;
 	private Point pointPlayer1;
 	private JTextField connect;
@@ -54,10 +51,7 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 		food= new Foods(numoffoods);
 		Dimension newSize = new Dimension(4000,3000);
 		outerArea= new Rectangle(0, 0, 4000, 3000);
-		connect = new JTextField();
-		connect.setBounds(0, 0, 50, 100);
 		setPreferredSize(newSize);
-		add(connect);
 		timer.start();
 	}	
 	@Override
@@ -177,5 +171,30 @@ public class DisplayGame extends JPanel implements ActionListener,KeyListener{
 			repaint();	
 		}
 	}
-
+	public Players getPlayer1() {
+		return player1;
+	}
+	public void setPlayer1(Players player1) {
+		this.player1 = player1;
+	}
+	public Players getPlayer2() {
+		return player2;
+	}
+	public void setPlayer2(Players player2) {
+		this.player2 = player2;
+	}
+	public Foods getFood() {
+		return food;
+	}
+	public void setFood(Foods food) {
+		this.food = food;
+	}
+	public Poisons getPoison() {
+		return poison;
+	}
+	public void setPoison(Poisons poison) {
+		this.poison = poison;
+	}
+	
+	
 }
